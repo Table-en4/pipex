@@ -3,33 +3,147 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: molapoug <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:16:39 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/21 18:01:48 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/22 05:05:21 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int ac, char **av)
+void ft_free_split(char **result)
 {
-	int	fd;
-	static char	*line;
+    int	j;
 
-	if (ac <= 1)
-		return (perror("invalid argument"), 1);
-	fd = open(av[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-		return (perror("fail to open file"), 1);
-	ft_putstr_fd("test d'une string\n a ecrire dans mon fichier\nsansleak", fd);
-	line = get_next_line(fd);
-	while (line)
+	j = 0;
+    if (!result)
+        return;
+    while (result[j])
+    {
+        free(result[j]);
+        j++;
+    }
+    free(result);
+}
+
+char	*find_path(char *cmd, char **envp)
+{
+	char	**path_dir;
+	char	*path_env;
+	char	*full_path;
+	char	*cmd_path;
+	int	i;
+
+	path_env = NULL;
+	i = 0;
+	while (envp[i])
 	{
-		free(line);
-		line = get_next_line(fd);
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+		{
+			path_env = envp[i] + 5;
+			break;
+		}
+		i++;
 	}
-	ft_printf("%d\n", access(av[1], R_OK | W_OK | F_OK | W_OK | X_OK));
-	ft_printf("y a pa eu d'erreur gg\n");
-	close(fd);
+	if (!path_env)
+		return (NULL);
+	path_dir = ft_split(path_env, ':');
+	if (!path_dir)
+		return (NULL);
+	i = 0;
+	while (path_dir[i])
+	{
+		full_path = ft_strjoin(path_dir[i], "/");
+		cmd_path = ft_strjoin(full_path, cmd);
+		free(full_path);
+		if (access(cmd_path, F_OK | X_OK) == 0)
+		{
+			ft_free_split(path_dir);
+			return (cmd_path);
+		}
+		free(cmd_path);
+		i++;
+	}
+	ft_free_split(path_dir);
+	return (NULL);
+}
+
+void	exec(char *cmd, char **envp)
+{
+	char	**args;
+	char	*cmd_path;
+
+	args = ft_split(cmd, ' ');
+	if (!args || !args[0])
+	{
+		perror("Invalid command");
+		exit(1);
+	}
+	cmd_path = find_path(args[0], envp);
+	if (!cmd_path)
+    {
+        ft_free_split(args);
+        perror("Command not found");
+        exit(1);
+    }
+	execve(cmd_path, args, envp);
+	perror("execve failed");
+	free(cmd_path);
+	ft_free_split(args);
+	exit(1);
+}
+
+void	child(char **av, char **envp, int *pipe_fd)
+{
+	int	infile_fd;
+
+	infile_fd = open(av[1], O_RDONLY);
+	if (infile_fd < 0)
+	{
+		perror("cant open infile");
+		exit(1);
+	}
+	dup2(infile_fd, STDIN_FILENO);
+	close(infile_fd);
+	dup2(pipe_fd[1], STDOUT_FILENO);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	exec(av[2], envp);
+}
+
+void	parent(char **av, char **envp, int *pipe_fd)
+{
+	int	outfile_fd;
+
+	outfile_fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (outfile_fd < 0)
+	{
+		perror("cant open outfile");
+		exit(0);
+	}
+	dup2(pipe_fd[0], STDIN_FILENO);
+	close(pipe_fd[1]);
+	close(pipe_fd[0]);
+	dup2(outfile_fd, STDOUT_FILENO);
+	close(outfile_fd);
+	exec(av[3], envp);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	int	pipe_fd[2];
+	pid_t	pid;
+
+	if (ac != 5)
+		return (ft_putstr_fd("Error in argument\n", 2), 1);
+	if (pipe(pipe_fd) == -1)
+		return (perror("pipe"), 1);
+	pid = fork();
+	if (pid == -1)
+		return (perror("fork"), 1);
+	if (pid == 0)
+		child(av, envp, pipe_fd);
+	else
+		parent(av, envp, pipe_fd);
 }
