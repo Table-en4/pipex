@@ -6,7 +6,7 @@
 #    By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:30:53 by molapoug          #+#    #+#              #
-#    Updated: 2025/06/22 13:34:35 by molapoug         ###   ########.fr        #
+#    Updated: 2025/06/22 18:19:30 by molapoug         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ FT_PRINTF = ft_printf/
 AR = ar rcs
 RM = rm -f
 
-SRC = pipex.c pipex_utils.c
+SRC = pipex.c pipex_utils.c pipex_bonus.c
 
 OBJ = $(SRC:.c=.o)
 

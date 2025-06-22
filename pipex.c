@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:16:39 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/22 14:06:20 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:22:02 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	parent(char **av, char **envp, int *pipe_fd)
 	close(outfile_fd);
 	exec(av[3], envp);
 }
-
+/*
 int	main(int ac, char **av, char **envp)
 {
 	int		pipe_fd[2];
@@ -118,3 +118,4 @@ int	main(int ac, char **av, char **envp)
 	else
 		parent(av, envp, pipe_fd);
 }
+*/
