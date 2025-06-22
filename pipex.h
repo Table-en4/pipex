@@ -6,7 +6,7 @@
 /*   By: molapoug <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:17:45 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/21 18:11:48 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/22 14:06:50 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ char	*t_strjoin(char *s1, char *s2);
 /*#-------------------------#*
  *----fonctions with int----#*
  *--------------------------#*/
-int	t_strlen(char *s);
+int		t_strlen(char *s);
 
 /*#-------------------------#*
- *#--fonctions with size_t--#*
+ *#---fonctions with void---#*
  *#-------------------------#*/
+void	*finder_path(char **envp);
+void	ft_free_split(char **result);
+
 #endif

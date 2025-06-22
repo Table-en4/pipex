@@ -6,26 +6,11 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:16:39 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/22 05:05:21 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/22 14:06:20 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void ft_free_split(char **result)
-{
-    int	j;
-
-	j = 0;
-    if (!result)
-        return;
-    while (result[j])
-    {
-        free(result[j]);
-        j++;
-    }
-    free(result);
-}
 
 char	*find_path(char *cmd, char **envp)
 {
@@ -33,19 +18,9 @@ char	*find_path(char *cmd, char **envp)
 	char	*path_env;
 	char	*full_path;
 	char	*cmd_path;
-	int	i;
+	int		i;
 
-	path_env = NULL;
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-		{
-			path_env = envp[i] + 5;
-			break;
-		}
-		i++;
-	}
+	path_env = finder_path(envp);
 	if (!path_env)
 		return (NULL);
 	path_dir = ft_split(path_env, ':');
@@ -58,15 +33,11 @@ char	*find_path(char *cmd, char **envp)
 		cmd_path = ft_strjoin(full_path, cmd);
 		free(full_path);
 		if (access(cmd_path, F_OK | X_OK) == 0)
-		{
-			ft_free_split(path_dir);
-			return (cmd_path);
-		}
+			return (ft_free_split(path_dir), cmd_path);
 		free(cmd_path);
 		i++;
 	}
-	ft_free_split(path_dir);
-	return (NULL);
+	return (ft_free_split(path_dir), NULL);
 }
 
 void	exec(char *cmd, char **envp)
@@ -82,11 +53,11 @@ void	exec(char *cmd, char **envp)
 	}
 	cmd_path = find_path(args[0], envp);
 	if (!cmd_path)
-    {
-        ft_free_split(args);
-        perror("Command not found");
-        exit(1);
-    }
+	{
+		ft_free_split(args);
+		perror("Command not found");
+		exit(1);
+	}
 	execve(cmd_path, args, envp);
 	perror("execve failed");
 	free(cmd_path);
@@ -132,7 +103,7 @@ void	parent(char **av, char **envp, int *pipe_fd)
 
 int	main(int ac, char **av, char **envp)
 {
-	int	pipe_fd[2];
+	int		pipe_fd[2];
 	pid_t	pid;
 
 	if (ac != 5)
