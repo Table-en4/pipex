@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: molapoug <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:17:45 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/22 18:21:30 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 12:36:39 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,10 @@ int		t_strlen(char *s);
 void	*finder_path(char **envp);
 void	ft_free_split(char **result);
 void	exec(char *cmd, char **envp);
+void	child_bonus(char **av, char **envp, int in_fd, int out_fd);
+void	open_infile(char *filename, int *in_fd);
+void	open_outfile(char *filename, int *out_fd);
+void	pipe_fork(int *pipe_fd, pid_t *pid);
+void	execute_cmd(char *cmd, char **envp, int in_fd, int out_fd);
 
 #endif
