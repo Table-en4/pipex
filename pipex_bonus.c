@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:53:57 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 14:43:56 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:05:53 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int ac, char **av, char **envp)
 	int	i;
 	int	prev_fd;
 
-	if (ac < 5)
+	if (ac < 3)
 		return (ft_putstr_fd("error 4 arg min\n", 2), 1);
 	if (ft_strcmp(av[1], "here_doc") == 0)
 		i = parse_heredoc(av, envp, &prev_fd);
