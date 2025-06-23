@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:35:40 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 16:40:58 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:38:28 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,25 @@ void	open_infile(char *filename, int *in_fd)
 	}
 }
 
-void	open_outfile(char *filename, int *out_fd)
+void	open_outfile(char *filename, int *out_fd, int a)
 {
-	*out_fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (*out_fd < 0)
+	if (a == 1)
 	{
-		perror("cant open outfile");
-		exit(1);
+		*out_fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (*out_fd < 0)
+		{
+			perror("Permission denied");
+			exit(1);
+		}
+	}
+	if (a == 2)
+	{
+		*out_fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (*out_fd < 0)
+		{
+			perror("Permission denied");
+			exit(1);
+		}
 	}
 }
 

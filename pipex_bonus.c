@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:53:57 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 16:17:16 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:54:11 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	last_cmd(char *cmd, char **envp, int prev_fd, char *outfile)
 	}
 	if (pid == 0)
 	{
-		open_outfile(outfile, &outfile_fd);
+		open_outfile(outfile, &outfile_fd, 1);
 		execute_cmd(cmd, envp, prev_fd, outfile_fd);
 	}
 	close(prev_fd);
@@ -85,15 +85,19 @@ int	set_pause(char *limiter, int *here_doc)
 	return (0);
 }
 
-/*int	main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	int	i;
 	int	prev_fd;
 
-	if (ac < 3)
-		return (ft_putstr_fd("error 4 arg min\n", 2), 1);
+	if (ac < 5)
+		return (ft_putstr_fd("Error: insufficient arguments\n", 2), 1);
 	if (ft_strcmp(av[1], "here_doc") == 0)
+	{
+		if (ac < 6)
+			return (ft_putstr_fd("Error: here_doc needs 5+ args\n", 2), 1);
 		i = parse_heredoc(av, envp, &prev_fd);
+	}
 	else
 	{
 		first_cmd(av, envp, &prev_fd);
@@ -101,8 +105,9 @@ int	set_pause(char *limiter, int *here_doc)
 	}
 	while (i < ac - 2)
 		bridge_cmd(av[i++], envp, &prev_fd);
-	last_cmd(av[ac - 2], envp, prev_fd, av[ac - 1]);
-	while (wait(NULL) > 0)
-		;
-	return (0);
-}*/
+	if (ft_strcmp(av[1], "here_doc") == 0)
+		last_cmd_heredoc(av[ac - 2], envp, prev_fd, av[ac - 1]);
+	else
+		last_cmd(av[ac - 2], envp, prev_fd, av[ac - 1]);
+	return (return_pid());
+}

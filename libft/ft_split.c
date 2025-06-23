@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 19:06:36 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 16:24:45 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 19:07:11 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char	**process_splits(char const *s, char c, char **result, int i)
 				i++;
 			result[j] = word_dup(s, start, i);
 			if (!result[j])
-				return (ft_free_split(result, j - 1), NULL);
+				return (ft_free_split(result, j), NULL);
 			j++;
 		}
 		else

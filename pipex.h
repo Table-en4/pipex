@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:17:45 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 16:10:19 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:53:40 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 int		t_strlen(char *s);
 int		parse_heredoc(char **av, char **envp, int *prev_fd);
 int		set_pause(char *limiter, int *here_doc);
+int		return_pid(void);
 
 /*#-------------------------#*
  *#---fonctions with void---#*
@@ -42,11 +43,18 @@ void	ft_free_split(char **result);
 void	exec(char *cmd, char **envp);
 void	child_bonus(char **av, char **envp, int in_fd, int out_fd);
 void	open_infile(char *filename, int *in_fd);
-void	open_outfile(char *filename, int *out_fd);
+void	open_outfile(char *filename, int *out_fd, int a);
 void	pipe_fork(int *pipe_fd, pid_t *pid);
 void	execute_cmd(char *cmd, char **envp, int in_fd, int out_fd);
 void	here_doc_ges(int *fd, char *limiter);
 void	cmd_heredoc(char *cmd, char **envp, int heredeoc, int *prev_fd);
 void	err_gest(int a);
+void	exec(char *cmd, char **envp);
+void	last_cmd_heredoc(char *cmd, char **envp, int prev_fd, char *outfile);
+
+/*#-------------------------#*
+ *#---fonctions with char---#*
+ *#-------------------------#*/
+char	*find_path(char *cmd, char **envp);
 
 #endif

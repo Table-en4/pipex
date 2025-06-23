@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:48:20 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 16:12:31 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:54:51 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,4 @@ void	err_gest(int a)
 		perror("fork");
 		exit(1);
 	}
-}
-
-int	parse_heredoc(char **av, char **envp, int *prev_fd)
-{
-	int	here_doc;
-
-	if (!av[2])
-		return (ft_putstr_fd("add a limiter to the here_doc", 2), 1);
-	if (set_pause(av[2], &here_doc) == -1)
-		return (1);
-	cmd_heredoc(av[3], envp, here_doc, prev_fd);
-	return (4);
 }
