@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:53:57 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 16:05:53 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:17:16 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	set_pause(char *limiter, int *here_doc)
 	return (0);
 }
 
-int	main(int ac, char **av, char **envp)
+/*int	main(int ac, char **av, char **envp)
 {
 	int	i;
 	int	prev_fd;
@@ -105,4 +105,4 @@ int	main(int ac, char **av, char **envp)
 	while (wait(NULL) > 0)
 		;
 	return (0);
-}
+}*/
