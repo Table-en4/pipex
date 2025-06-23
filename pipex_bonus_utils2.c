@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:48:20 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 15:06:59 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:12:31 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*read_line_stdin(void)
 			return (NULL);
 		buffer[i++] = c;
 		if (c == '\n')
-			break;
+			break ;
 	}
 	buffer[i] = '\0';
 	return (ft_strdup(buffer));
@@ -43,12 +43,12 @@ void	here_doc_ges(int *fd, char *limiter)
 	{
 		line = read_line_stdin();
 		if (!line)
-			break;
-		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0 && 
-			line[ft_strlen(limiter)] == '\n')
+			break ;
+		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0
+			&& line[ft_strlen(limiter)] == '\n')
 		{
 			free(line);
-			break;
+			break ;
 		}
 		write(fd[1], line, ft_strlen(line));
 		free(line);

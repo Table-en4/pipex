@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:17:45 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 14:38:56 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:10:19 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,11 @@
 # include <stdio.h>
 
 /*#-------------------------#*
- *#---fonctions with char---#*
- *#-------------------------#*/
-char	*get_next_line(int fd);
-char	*t_strjoin(char *s1, char *s2);
-
-/*#-------------------------#*
  *----fonctions with int----#*
  *--------------------------#*/
 int		t_strlen(char *s);
-int     parse_heredoc(char **av, char **envp, int *prev_fd);
-int     set_pause(char *limiter, int *here_doc);
+int		parse_heredoc(char **av, char **envp, int *prev_fd);
+int		set_pause(char *limiter, int *here_doc);
 
 /*#-------------------------#*
  *#---fonctions with void---#*

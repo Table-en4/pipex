@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:04:31 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 13:43:33 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:13:29 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int	i;;
+	int	i;
 
 	i = 0;
-	while((s1[i] == s2[i]) && s1[i] && s2[i])
+	while ((s1[i] == s2[i]) && s1[i] && s2[i])
 		i++;
-	return (s1[i]-s2[i]);
+	return (s1[i] - s2[i]);
 }
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
