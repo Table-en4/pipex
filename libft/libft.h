@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:13:35 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/22 02:27:24 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:44:20 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # include <string.h>
 # include <stdint.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
 /* strcut */
 typedef struct s_list
 {
@@ -30,6 +34,7 @@ typedef struct s_list
 /* fonctions with int prototypes */
 /* ################################# */
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strcmp(char *s1, char *s2);
 int					ft_atoi(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -40,6 +45,7 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_lstsize(t_list *lst);
+int					t_strlen(char *s);
 
 /* fonctions with char prototypes */
 char				*ft_strstr(char *str, char *to_find);
@@ -55,6 +61,8 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_itoa(int n);
+char				*t_strjoin(char *s1, char *s2);
+char				*get_next_line(int fd);
 
 /* fonction with void protoypes */
 void				ft_putstr_fd(const char *s, int fd);
@@ -81,6 +89,7 @@ void				ft_putstr(char *str);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 size_t				ft_strlen(const char *s);
+size_t				t_strlcpy(char *dst, char *src, size_t size);
 
 /* fonctions with t_size prototypes */
 t_list				*ft_lstnew(void *content);

@@ -6,13 +6,11 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:53:57 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 12:35:03 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:43:56 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-
 
 void	first_cmd(char **av, char **envp, int *prev_fd)
 {
@@ -68,20 +66,41 @@ void	last_cmd(char *cmd, char **envp, int prev_fd, char *outfile)
 	close(prev_fd);
 }
 
+int	set_pause(char *limiter, int *here_doc)
+{
+	int		fd[2];
+	pid_t	pid;
+	int		status;
+
+	if (pipe(fd) == -1)
+		return (err_gest(1), -1);
+	pid = fork();
+	if (pid == -1)
+		return (err_gest(2), -1);
+	if (pid == 0)
+		here_doc_ges(fd, limiter);
+	close(fd[1]);
+	waitpid(pid, &status, 0);
+	*here_doc = fd[0];
+	return (0);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	int	i;
 	int	prev_fd;
 
-	if (ac < 4)
-		return (ft_putstr_fd("Error: need at least 4 arguments\n", 2), 1);
-	first_cmd(av, envp, &prev_fd);
-	i = 3;
-	while (i < ac - 2)
+	if (ac < 5)
+		return (ft_putstr_fd("error 4 arg min\n", 2), 1);
+	if (ft_strcmp(av[1], "here_doc") == 0)
+		i = parse_heredoc(av, envp, &prev_fd);
+	else
 	{
-		bridge_cmd(av[i], envp, &prev_fd);
-		i++;
+		first_cmd(av, envp, &prev_fd);
+		i = 3;
 	}
+	while (i < ac - 2)
+		bridge_cmd(av[i++], envp, &prev_fd);
 	last_cmd(av[ac - 2], envp, prev_fd, av[ac - 1]);
 	while (wait(NULL) > 0)
 		;

@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:17:45 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 12:36:39 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:38:56 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@
  *#---fonctions with char---#*
  *#-------------------------#*/
 char	*get_next_line(int fd);
-char	*ft_strdu(char *s);
 char	*t_strjoin(char *s1, char *s2);
 
 /*#-------------------------#*
  *----fonctions with int----#*
  *--------------------------#*/
 int		t_strlen(char *s);
+int     parse_heredoc(char **av, char **envp, int *prev_fd);
+int     set_pause(char *limiter, int *here_doc);
 
 /*#-------------------------#*
  *#---fonctions with void---#*
@@ -50,5 +51,8 @@ void	open_infile(char *filename, int *in_fd);
 void	open_outfile(char *filename, int *out_fd);
 void	pipe_fork(int *pipe_fd, pid_t *pid);
 void	execute_cmd(char *cmd, char **envp, int in_fd, int out_fd);
+void	here_doc_ges(int *fd, char *limiter);
+void	cmd_heredoc(char *cmd, char **envp, int heredeoc, int *prev_fd);
+void	err_gest(int a);
 
 #endif

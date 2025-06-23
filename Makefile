@@ -6,7 +6,7 @@
 #    By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 10:30:53 by molapoug          #+#    #+#              #
-#    Updated: 2025/06/23 12:37:09 by molapoug         ###   ########.fr        #
+#    Updated: 2025/06/23 14:10:14 by molapoug         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ AR = ar rcs
 RM = rm -f
 
 SRC = pipex.c pipex_utils.c pipex_bonus.c \
-	pipex_bonus_utils.c
+	pipex_bonus_utils.c pipex_bonus_utils2.c \
 
 OBJ = $(SRC:.c=.o)
 

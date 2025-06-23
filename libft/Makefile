@@ -33,7 +33,8 @@ SRC = ft_calloc.c ft_isalnum.c \
 	ft_strnstr.c ft_strrchr.c \
 	ft_itoa.c ft_split.c \
 	ft_strmapi.c ft_striteri.c \
-	ft_putstr.c
+	ft_putstr.c get_next_line.c\
+	get_next_line_utils.c
 
 SRC_B = ft_lstnew_bonus.c ft_lstadd_front_bonus.c \
 	ft_lstsize_bonus.c ft_lstlast_bonus.c \
