@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:16:39 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 20:30:41 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/26 11:25:47 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	parent(char **av, char **envp, int *pipe_fd)
 	exec(av[3], envp);
 }
 
-/*int	main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
@@ -66,4 +66,4 @@ void	parent(char **av, char **envp, int *pipe_fd)
 		child(av, envp, pipe_fd);
 	else
 		parent(av, envp, pipe_fd);
-}*/
+}
