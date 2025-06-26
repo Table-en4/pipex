@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:16:39 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/26 11:25:47 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:12:39 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,11 @@ int	main(int ac, char **av, char **envp)
 		child(av, envp, pipe_fd);
 	else
 		parent(av, envp, pipe_fd);
+	int	status;
+	int	exit_code;
+
+	exit_code = 0;
+	while (wait(&status) > 0)
+		exit_code = (status >> 8) & 0xFF;
+	return (exit_code);
 }

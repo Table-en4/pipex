@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus_utils3.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: molapoug <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:55:02 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 20:55:05 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:12:23 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ int	return_pid(void)
 
 	exit_code = 0;
 	while (wait(&status) > 0)
-	{
-		if (WIFEXITED(status))
-			exit_code = WEXITSTATUS(status);
-	}
+		exit_code = (status >> 8) & 0xFF;
 	return (exit_code);
 }
 
