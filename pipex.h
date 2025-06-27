@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:17:45 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 20:53:40 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:19:09 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	*finder_path(char **envp);
 void	ft_free_split(char **result);
 void	exec(char *cmd, char **envp);
 void	child_bonus(char **av, char **envp, int in_fd, int out_fd);
-void	open_infile(char *filename, int *in_fd);
-void	open_outfile(char *filename, int *out_fd, int a);
+void	open_infile(char *filename, int *in_fd, int prev_fd);
+void	open_outfile(char *filename, int *out_fd, int a, int prev_fd);
 void	pipe_fork(int *pipe_fd, pid_t *pid);
 void	execute_cmd(char *cmd, char **envp, int in_fd, int out_fd);
 void	here_doc_ges(int *fd, char *limiter);

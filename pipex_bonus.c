@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 17:53:57 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 20:54:11 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:17:21 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	first_cmd(char **av, char **envp, int *prev_fd)
 	pipe_fork(pipe_fd, &pid);
 	if (pid == 0)
 	{
-		open_infile(av[1], &infile_fd);
 		close(pipe_fd[0]);
+		open_infile(av[1], &infile_fd, pipe_fd[1]);
 		execute_cmd(av[2], envp, infile_fd, pipe_fd[1]);
 	}
 	close(pipe_fd[1]);
@@ -60,7 +60,7 @@ void	last_cmd(char *cmd, char **envp, int prev_fd, char *outfile)
 	}
 	if (pid == 0)
 	{
-		open_outfile(outfile, &outfile_fd, 1);
+		open_outfile(outfile, &outfile_fd, 1, prev_fd);
 		execute_cmd(cmd, envp, prev_fd, outfile_fd);
 	}
 	close(prev_fd);

@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:16:39 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/26 12:12:39 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:20:10 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	child(char **av, char **envp, int *pipe_fd)
 	if (infile_fd < 0)
 	{
 		perror("cant open infile");
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
 		exit(1);
 	}
 	dup2(infile_fd, STDIN_FILENO);
@@ -38,6 +40,8 @@ void	parent(char **av, char **envp, int *pipe_fd)
 	if (outfile_fd < 0)
 	{
 		perror("cant open outfile");
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
 		wait(NULL);
 		exit(1);
 	}
@@ -53,6 +57,8 @@ void	parent(char **av, char **envp, int *pipe_fd)
 int	main(int ac, char **av, char **envp)
 {
 	int		pipe_fd[2];
+	int		exit_code;
+	int		status;
 	pid_t	pid;
 
 	if (ac != 5)
@@ -66,9 +72,6 @@ int	main(int ac, char **av, char **envp)
 		child(av, envp, pipe_fd);
 	else
 		parent(av, envp, pipe_fd);
-	int	status;
-	int	exit_code;
-
 	exit_code = 0;
 	while (wait(&status) > 0)
 		exit_code = (status >> 8) & 0xFF;

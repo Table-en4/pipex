@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:55:02 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/26 12:12:23 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:16:53 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	last_cmd_heredoc(char *cmd, char **envp, int prev_fd, char *outfile)
 	}
 	if (pid == 0)
 	{
-		open_outfile(outfile, &outfile_fd, 2);
+		open_outfile(outfile, &outfile_fd, 2, prev_fd);
 		execute_cmd(cmd, envp, prev_fd, outfile_fd);
 	}
 	close(prev_fd);

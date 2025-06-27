@@ -6,7 +6,7 @@
 /*   By: molapoug <molapoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:35:40 by molapoug          #+#    #+#             */
-/*   Updated: 2025/06/23 20:38:28 by molapoug         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:19:09 by molapoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,19 @@ void	child_bonus(char **av, char **envp, int in_fd, int out_fd)
 	}
 }
 
-void	open_infile(char *filename, int *in_fd)
+void	open_infile(char *filename, int *in_fd, int prev_fd)
 {
 	*in_fd = open(filename, O_RDONLY);
 	if (*in_fd < 0)
 	{
 		perror("cant open infile");
+		if (prev_fd != -1)
+			close(prev_fd);
 		exit(1);
 	}
 }
 
-void	open_outfile(char *filename, int *out_fd, int a)
+void	open_outfile(char *filename, int *out_fd, int a, int prev_fd)
 {
 	if (a == 1)
 	{
@@ -46,6 +48,8 @@ void	open_outfile(char *filename, int *out_fd, int a)
 		if (*out_fd < 0)
 		{
 			perror("Permission denied");
+			if (prev_fd != -1)
+				close(prev_fd);
 			exit(1);
 		}
 	}
@@ -55,6 +59,8 @@ void	open_outfile(char *filename, int *out_fd, int a)
 		if (*out_fd < 0)
 		{
 			perror("Permission denied");
+			if (prev_fd != -1)
+				close(prev_fd);
 			exit(1);
 		}
 	}
@@ -79,4 +85,7 @@ void	execute_cmd(char *cmd, char **envp, int in_fd, int out_fd)
 {
 	child_bonus(NULL, NULL, in_fd, out_fd);
 	exec(cmd, envp);
+	close(in_fd);
+	close(out_fd);
+	exit(1);
 }
